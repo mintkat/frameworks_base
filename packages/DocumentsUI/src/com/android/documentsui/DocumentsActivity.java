@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
+ * Modifications Copyright (C) 2013 The OmniROM Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +13,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Per article 5 of the Apache 2.0 License, some modifications to this code
+ * were made by the OmniROM Project.
+ *
+ * Modifications Copyright (C) 2013 The OmniROM Project
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 package com.android.documentsui;
@@ -26,6 +41,7 @@ import static com.android.documentsui.DocumentsActivity.State.ACTION_MANAGE;
 import static com.android.documentsui.DocumentsActivity.State.ACTION_OPEN;
 import static com.android.documentsui.DocumentsActivity.State.ACTION_STANDALONE;
 import static com.android.documentsui.DocumentsActivity.State.ACTION_OPEN_TREE;
+import static com.android.documentsui.DocumentsActivity.State.ACTION_STANDALONE;
 import static com.android.documentsui.DocumentsActivity.State.MODE_GRID;
 import static com.android.documentsui.DocumentsActivity.State.MODE_LIST;
 
@@ -307,9 +323,9 @@ public class DocumentsActivity extends Activity {
         if (mState.action == ACTION_OPEN || mState.action == ACTION_GET_CONTENT) {
             mState.allowMultiple = intent.getBooleanExtra(
                     Intent.EXTRA_ALLOW_MULTIPLE, false);
-            } else if (mState.action == ACTION_STANDALONE) {
-                mState.allowMultiple = true;
-            }
+        } else if (mState.action == ACTION_STANDALONE) {
+            mState.allowMultiple = true;
+        }
 
         if (mState.action == ACTION_MANAGE) {
             mState.acceptMimes = new String[] { "*/*" };
@@ -625,7 +641,7 @@ public class DocumentsActivity extends Activity {
         // Paste is visible only if we have files in the clipboard, and if
         // we can paste in this directory
         paste.setVisible(mClipboardFiles != null && mClipboardFiles.size() > 0
-        && cwd != null && cwd.isCreateSupported());
+            && cwd != null && cwd.isCreateSupported());
 
         sort.setVisible(cwd != null);
         grid.setVisible(mState.derivedMode != MODE_GRID);
@@ -654,7 +670,8 @@ public class DocumentsActivity extends Activity {
 
         boolean searchVisible;
         boolean fileSizeVisible = mState.action != ACTION_MANAGE;
-        if (mState.action == ACTION_CREATE || mState.action == ACTION_OPEN_TREE) {
+        if (mState.action == ACTION_CREATE || mState.action == ACTION_OPEN_TREE
+			|| mState.action == ACTION_STANDALONE) {
             createDir.setVisible(cwd != null && cwd.isCreateSupported());
             searchVisible = false;
 
@@ -1149,8 +1166,8 @@ public class DocumentsActivity extends Activity {
         mClipboardIsCopy = copy;
         final Resources r = getResources();
         Toast.makeText(this,
-        r.getQuantityString(R.plurals.files_copied, docs.size(), docs.size()),
-        Toast.LENGTH_SHORT).show();
+            r.getQuantityString(R.plurals.files_copied, docs.size(), docs.size()),
+            Toast.LENGTH_SHORT).show();
 
         // Update the action bar buttons
         invalidateOptionsMenu();
@@ -1327,11 +1344,11 @@ public class DocumentsActivity extends Activity {
                 try {
                     final DocumentInfo cwd = getCurrentDirectory();
                     client = DocumentsApplication.acquireUnstableProviderOrThrow(
-                    resolver, cwd.derivedUri.getAuthority());
+                        resolver, cwd.derivedUri.getAuthority());
 
                     // Create a new file of the same MIME type as the original
                     final Uri childUri = DocumentsContract.createDocument(
-                    client, cwd.derivedUri, doc.mimeType, doc.displayName);
+                            client, cwd.derivedUri, doc.mimeType, doc.displayName);
 
                     ContentProviderClient.releaseQuietly(client);
 
