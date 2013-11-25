@@ -66,7 +66,7 @@ import com.android.systemui.BatteryLevelTextView;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.R;
 import com.android.systemui.cm.UserContentObserver;
-import com.android.systemui.omni.StatusHeaderMachine;
+import com.android.systemui.omni.StatusBarHeaderMachine;
 import com.android.systemui.qs.QSPanel;
 import com.android.systemui.qs.QSTile;
 import com.android.systemui.statusbar.policy.BatteryController;
@@ -79,7 +79,7 @@ import java.text.NumberFormat;
  * The view to manage the header area in the expanded status bar.
  */
 public class StatusBarHeaderView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener,
-        NextAlarmController.NextAlarmChangeCallback, WeatherController.Callback, StatusHeaderMachine.IStatusHeaderMachineObserver {
+        NextAlarmController.NextAlarmChangeCallback, WeatherController.Callback, StatusBarHeaderMachine.IStatusBarHeaderMachineObserver {
 
     static final String TAG = "StatusBarHeaderView";
     private boolean mExpanded;
@@ -167,6 +167,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
     private ImageView mBackgroundImage;
     private Drawable mCurrentBackground;
+    private float mLastHeight;
 
     public StatusBarHeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -551,19 +552,27 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         }
         mCurrentT = t;
         float height = mCollapsedHeight + t * (mExpandedHeight - mCollapsedHeight);
-        if (height < mCollapsedHeight) {
-            height = mCollapsedHeight;
-        }
-        if (height > mExpandedHeight) {
-            height = mExpandedHeight;
-        }
-        setClipping(height);
+        if (height != mLastHeight) {
+            if (height < mCollapsedHeight) {
+                height = mCollapsedHeight;
+            }
+            if (height > mExpandedHeight) {
+                height = mExpandedHeight;
+            }
+            final float heightFinal = height;
+            setClipping(heightFinal);
 
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBackgroundImage.getLayoutParams(); 
-        params.height = (int)height;
-        mBackgroundImage.setLayoutParams(params);
+            post(new Runnable() {
+                 public void run() {
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBackgroundImage.getLayoutParams(); 
+                    params.height = (int)heightFinal;
+                    mBackgroundImage.setLayoutParams(params);
+                }
+            });
 
-        updateLayoutValues(t);
+            updateLayoutValues(t);
+            mLastHeight = heightFinal;
+        }
     }
 
     private void updateLayoutValues(float t) {
@@ -1142,12 +1151,12 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         }
     }
 
-    private void doUpdateStatusBarCustomHeader(final Drawable next) {
+    private void doUpdateStatusBarCustomHeader(final Drawable next, final boolean force) {
         if (next != null) {
             if (next != mCurrentBackground) {
                 Log.i(TAG, "Updating status bar header background");
                 mBackgroundImage.setVisibility(View.VISIBLE);
-                setNotificationPanelHeaderBackground(next);
+                setNotificationPanelHeaderBackground(next, force);
                 mCurrentBackground = next;
             }
         } else {
@@ -1156,28 +1165,32 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         }
     }
 
-    private void setNotificationPanelHeaderBackground(final Drawable dw) {
-        Drawable[] arrayDrawable = new Drawable[2];
-        arrayDrawable[0] = mBackgroundImage.getDrawable();
-        arrayDrawable[1] = dw;
+    private void setNotificationPanelHeaderBackground(final Drawable dw, final boolean force) {
+        if (mBackgroundImage.getDrawable() != null && !force) {
+            Drawable[] arrayDrawable = new Drawable[2];
+            arrayDrawable[0] = mBackgroundImage.getDrawable();
+            arrayDrawable[1] = dw;
 
-        TransitionDrawable transitionDrawable = new TransitionDrawable(arrayDrawable);
-        transitionDrawable.setCrossFadeEnabled(true);
-        mBackgroundImage.setImageDrawable(transitionDrawable);
-        transitionDrawable.startTransition(1000);
+            TransitionDrawable transitionDrawable = new TransitionDrawable(arrayDrawable);
+            transitionDrawable.setCrossFadeEnabled(true);
+            mBackgroundImage.setImageDrawable(transitionDrawable);
+            transitionDrawable.startTransition(1000);
+        } else {
+            mBackgroundImage.setImageDrawable(dw);
+        }
     }
 
     @Override
-    public void updateStatusHeader(final Drawable headerImage) {
+    public void updateHeader(final Drawable headerImage, final boolean force) {
         post(new Runnable() {
              public void run() {
-                 doUpdateStatusBarCustomHeader(headerImage);
+                 doUpdateStatusBarCustomHeader(headerImage, force);
             }
         });
     }
 
     @Override
-    public void disableStatusHeader() {
+    public void disableHeader() {
         post(new Runnable() {
              public void run() {
                 mCurrentBackground = null;
