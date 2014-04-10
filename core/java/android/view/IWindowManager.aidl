@@ -280,4 +280,10 @@ interface IWindowManager
      * @hide
      */
     int getSystemUIVisibility();
+
+    /** FLOAT VIEW **/
+    Rect getAppFullscreenViewRect();
+    Rect getAppMinimumViewRect();
+    Rect getFloatViewRect();
+    void notifyFloatActivityTouched(IBinder token, boolean force);
 }
