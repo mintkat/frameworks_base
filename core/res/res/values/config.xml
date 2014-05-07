@@ -2516,4 +2516,11 @@
          multi timezones country will use capital city timezone.  -->
     <bool name="config_use_capital_timezone">false</bool>
 
+    <!-- Configuration that determines if ACTIVATE_REJECT_GGSN is to be treated as
+         a permanent error -->
+    <bool translatable="false" name="config_reject_ggsn_perm_failure">true</bool>
+    <!-- Configuration that determines if PROTOCOL_ERRORS is to be treated as a
+         permanent error -->
+    <bool translatable="false" name="config_protocol_errors_perm_failure">true</bool>
+
 </resources>
