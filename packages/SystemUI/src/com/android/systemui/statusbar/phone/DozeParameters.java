@@ -74,8 +74,16 @@ public class DozeParameters {
         return getPulseInDuration(pickup) + getPulseVisibleDuration() + getPulseOutDuration();
     }
 
-    public int getPulseInDuration() {
-        return getInt("doze.pulse.duration.in", R.integer.doze_pulse_duration_in);
+    public int getPulseInDuration(boolean pickup) {
+        return pickup
+                ? getInt("doze.pulse.duration.in.pickup", R.integer.doze_pulse_duration_in_pickup)
+                : getInt("doze.pulse.duration.in", R.integer.doze_pulse_duration_in);
+    }
+
+    public int getPulseInDelay(boolean pickup) {
+        return pickup
+                ? getInt("doze.pulse.delay.in.pickup", R.integer.doze_pulse_delay_in_pickup)
+                : getInt("doze.pulse.delay.in", R.integer.doze_pulse_delay_in);
     }
 
     public int getPulseVisibleDuration() {
@@ -116,6 +124,14 @@ public class DozeParameters {
 
     public PulseSchedule getPulseSchedule() {
         final String spec = getString("doze.pulse.schedule", R.string.doze_pulse_schedule);
+        if (sPulseSchedule == null || !sPulseSchedule.mSpec.equals(spec)) {
+            sPulseSchedule = PulseSchedule.parse(spec);
+        }
+        return sPulseSchedule;
+    }
+
+    public PulseSchedule getAlternatePulseSchedule() {
+        final String spec = getString("doze.pulse.schedule", R.string.doze_pulse_schedule_alternate);
         if (sPulseSchedule == null || !sPulseSchedule.mSpec.equals(spec)) {
             sPulseSchedule = PulseSchedule.parse(spec);
         }
