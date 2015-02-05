@@ -43,6 +43,7 @@ public class QSConstants {
     public static final String TILE_VOLUME = "volume_panel";
     public static final String TILE_SCREEN_TIMEOUT = "screen_timeout";
     public static final String TILE_SCREENSHOT = "screenshot";
+    public static final String TILE_SCREENRECORD = "screenrecord";
     public static final String TILE_SYNC = "sync";
     public static final String TILE_BRIGHTNESS = "brightness";
     public static final String TILE_BATTERY_SAVER = "battery_saver";
@@ -90,6 +91,7 @@ public class QSConstants {
         STATIC_TILES_AVAILABLE.add(TILE_VOLUME);
         STATIC_TILES_AVAILABLE.add(TILE_SCREEN_TIMEOUT);
         STATIC_TILES_AVAILABLE.add(TILE_SCREENSHOT);
+        STATIC_TILES_AVAILABLE.add(TILE_SCREENRECORD);
         STATIC_TILES_AVAILABLE.add(TILE_SYNC);
         STATIC_TILES_AVAILABLE.add(TILE_BRIGHTNESS);
         STATIC_TILES_AVAILABLE.add(TILE_BATTERY_SAVER);
