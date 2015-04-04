@@ -3765,6 +3765,12 @@ public final class Settings {
          */
         public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_panel_show_topmost";
 
+		/**
+         * show the membar in recents
+         *  @hide
+         */
+        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
+
         /**
          * Whether to use gesture anywhere feature.
          * @hide
