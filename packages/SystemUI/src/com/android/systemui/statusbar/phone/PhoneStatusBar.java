@@ -578,6 +578,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 }
             }
 
+            int sidebarPosition = Settings.System.getInt(
+                    resolver, Settings.System.APP_SIDEBAR_POSITION, AppSidebar.SIDEBAR_POSITION_LEFT);
+            if (sidebarPosition != mSidebarPosition) {
+                mSidebarPosition = sidebarPosition;
+                removeSidebarView();
+                addSidebarView();
+            }
+
             if (mNavigationBarView != null) {
                 boolean navLeftInLandscape = Settings.System.getIntForUser(resolver,
                         Settings.System.NAVBAR_LEFT_IN_LANDSCAPE, 0, UserHandle.USER_CURRENT) == 1;
@@ -3976,17 +3984,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mHeadsUpNotificationView.dismiss();
         }
      }
-
-    private void updateSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        int sidebarPosition = Settings.System.getInt(resolver,
-                Settings.System.APP_SIDEBAR_POSITION, 
-                AppSidebar.SIDEBAR_POSITION_LEFT);
-        if (sidebarPosition != mSidebarPosition) {
-            mSidebarPosition = sidebarPosition;
-            mWindowManager.updateViewLayout(mAppSidebar, getAppSidebarLayoutParams(sidebarPosition));
-        }
-    }
 
     private static void copyNotifications(ArrayList<Pair<String, StatusBarNotification>> dest,
             NotificationData source) {
