@@ -28,4 +28,7 @@
     <string name="app_float_item_title">Float view</string>
     <string name="app_stop_item_title">Kill app</string>
 
+    <!-- PA Pie -->
+    <dimen name="pie_panel_padding">100dp</dimen>
+
 </resources>
