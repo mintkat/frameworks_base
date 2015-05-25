@@ -90,7 +90,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libaapt
 LOCAL_CFLAGS += -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS $(aaptCFlags)
-LOCAL_CPPFLAGS += $(aaptCppFlags)
+LOCAL_CPPFLAGS += $(aaptCppFlags) -Wno-unused-parameter
 ifeq (darwin,$(HOST_OS))
 LOCAL_CFLAGS += -D_DARWIN_UNLIMITED_STREAMS
 endif
@@ -110,7 +110,7 @@ LOCAL_MODULE := aapt
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/mocks
 
 LOCAL_CFLAGS += $(aaptCFlags)
-LOCAL_CPPFLAGS += $(aaptCppFlags)
+LOCAL_CPPFLAGS += $(aaptCppFlags) -Wno-unused-parameter
 LOCAL_LDLIBS += $(aaptHostLdLibs)
 LOCAL_SRC_FILES := $(aaptMain)
 LOCAL_STATIC_LIBRARIES += libaapt $(aaptHostStaticLibs)
@@ -125,7 +125,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libaapt_tests
 LOCAL_CFLAGS += $(aaptCFlags)
-LOCAL_CPPFLAGS += $(aaptCppFlags)
+LOCAL_CPPFLAGS += $(aaptCppFlags) -Wno-unused-parameter
 LOCAL_LDLIBS += $(aaptHostLdLibs)
 LOCAL_SRC_FILES += $(aaptTests)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)
