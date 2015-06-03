@@ -294,4 +294,9 @@
     <string name="quick_settings_tile_flashlight_not_title">Flashlight is on</string>
     <string name="quick_settings_tile_flashlight_not_summary">Tap to turn off</string>
 
+    <!-- Third party keyguard permission label -->
+    <string name="permlab_thirdPartyKeyguard">Third party keyguard</string>
+    <!-- Third party keyguard permission description -->
+    <string name="permdesc_thirdPartyKeyguard">Allows an app to be used as an insecure keyguard</string>
+
 </resources>
