@@ -1867,6 +1867,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mVolumeWakeScreen = (Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_WAKE_SCREEN, 0, UserHandle.USER_CURRENT) == 1);
 
+        }
+        synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
             WindowManagerPolicyControl.reloadFromSetting(mContext);
         }
         if (updateRotation) {
