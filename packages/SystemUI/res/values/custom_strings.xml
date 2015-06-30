@@ -70,4 +70,7 @@
     <!-- Kill app toast -->
     <string name="app_killed_message">App Killed</string>
 
+    <!-- Battery Saver Dimss -->
+    <string name="battery_saver_dismiss_title">Dismiss</string>
+
 </resources>
