@@ -56,4 +56,7 @@
 
     <string name="gestures_message">Draw your gesture here</string>
 
+    <!-- Title shown in recents popup for showing app launch in floating mode -->
+    <string name="recent_float_mode_title">Floating mode</string>
+
 </resources>
