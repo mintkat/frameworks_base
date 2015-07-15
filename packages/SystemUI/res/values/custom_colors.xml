@@ -57,4 +57,7 @@
     <!-- app sidebar item text shadow color -->
     <color name="sidebar_item_text_shadow_color">#ff000000</color>
 
+    <!-- Status Bar temp -->
+    <color name="status_bar_temp_text_color">@color/status_bar_clock_color</color>
+
 </resources>
