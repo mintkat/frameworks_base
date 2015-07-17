@@ -492,6 +492,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
                 : mUnlockMethodCache.isCurrentlyInsecure() ? R.drawable.ic_lock_open_24dp
                 : R.drawable.ic_lock_24dp;
         if (mLastUnlockIconRes != iconRes) {
+            mLastUnlockIconRes = iconRes;
             Drawable icon = mContext.getDrawable(iconRes);
             int iconHeight = getResources().getDimensionPixelSize(
                     R.dimen.keyguard_affordance_icon_height);
