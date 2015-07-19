@@ -56,6 +56,7 @@ import com.android.systemui.qs.tiles.LteTile;
 import com.android.systemui.qs.tiles.NotificationsTile;
 import com.android.systemui.qs.tiles.ProfilesTile;
 import com.android.systemui.qs.tiles.PerfProfileTile;
+import com.android.systemui.qs.tiles.PieControlTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.UsbTetherTile;
 import com.android.systemui.qs.tiles.VisualizerTile;
@@ -375,6 +376,8 @@ public class QSTileHost implements QSTile.Host {
                 return new UsbTetherTile(this);
             case QSConstants.TILE_HEADS_UP:
                 return new HeadsUpTile(this);
+            case QSConstants.TILE_PIECONTROL:
+                return new PieControlTile(this);
             default:
                 throw new IllegalArgumentException("Bad tile spec: " + tileSpec);
         }
