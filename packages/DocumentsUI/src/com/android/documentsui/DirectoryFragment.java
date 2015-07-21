@@ -647,12 +647,12 @@ public class DirectoryFragment extends Fragment {
         // Open a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 new DeleteFilesTask(docs.toArray(new DocumentInfo[0])).executeOnExecutor(getCurrentExecutor());
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog, ignore actions
             }
@@ -690,10 +690,9 @@ public class DirectoryFragment extends Fragment {
                     final RootInfo root = getArguments().getParcelable(EXTRA_ROOT);
 
                     // We get the contents of the directory
-                    DirectoryLoader loader = new DirectoryLoader(
-                            context, mType, root, doc, contentsUri, SORT_ORDER_UNKNOWN);
+                    mLoader.init(mType, root, doc, contentsUri, SORT_ORDER_UNKNOWN);
 
-                    DirectoryResult result = loader.loadInBackground();
+                    DirectoryResult result = mLoader.loadInBackground();
                     Cursor cursor = result.cursor;
 
                     // Build a list of the docs to delete, and delete them
