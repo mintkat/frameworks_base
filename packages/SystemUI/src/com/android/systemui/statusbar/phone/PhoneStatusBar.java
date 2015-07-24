@@ -530,6 +530,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCK_SCREEN_ICON_COLOR),
                     false, this, UserHandle.USER_ALL);	
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.QS_NUM_TILE_COLUMNS), false, this,
+                    UserHandle.USER_ALL);
             update();
         }
 
@@ -773,6 +776,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 } else {
                     addHeadsUpView();
                 }
+            }
+            if (mQSPanel != null) {
+                mQSPanel.updateNumColumns();
             }
         }
     };
