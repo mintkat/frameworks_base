@@ -20,4 +20,7 @@
     <color name="notification_material_action_textcolor">#8a000000</color>
     <color name="notification_template_material_big_picture_background_color">#CCEEEEEE</color>
 
+     <color name="dark_material_dialog_background">#ff212021</color>
+     <drawable name="dark_material_bg">@color/dark_material_dialog_background</drawable>
+
 </resources>
