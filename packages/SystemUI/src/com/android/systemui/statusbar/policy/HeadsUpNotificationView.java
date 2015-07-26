@@ -23,6 +23,8 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Outline;
 import android.graphics.Rect;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.os.SystemClock;
@@ -158,7 +160,7 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
         return mContentHolder;
     }
 
-    public boolean showNotification(NotificationData.Entry isHeadsUp, int background) {
+    public boolean showNotification(NotificationData.Entry isHeadsUp) {
         if (mHeadsUp != null && isHeadsUp != null && !mHeadsUp.key.equals(isHeadsUp.key)) {
             // bump any previous heads up back to the shade
             release();
