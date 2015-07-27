@@ -92,4 +92,7 @@
     <!-- Battery Saver Dismiss -->
     <string name="battery_saver_dismiss_title">Dismiss</string>
 
+	<!-- TRDS -->
+    <string name="quick_settings_trds_label">TRDS</string>
+
 </resources>
