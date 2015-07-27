@@ -53,6 +53,7 @@ import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.LockscreenToggleTile;
 import com.android.systemui.qs.tiles.LteTile;
+import com.android.systemui.qs.tiles.NavBarTile;
 import com.android.systemui.qs.tiles.NotificationsTile;
 import com.android.systemui.qs.tiles.ProfilesTile;
 import com.android.systemui.qs.tiles.PerfProfileTile;
@@ -378,6 +379,8 @@ public class QSTileHost implements QSTile.Host {
                 return new HeadsUpTile(this);
             case QSConstants.TILE_PIECONTROL:
                 return new PieControlTile(this);
+            case QSConstants.TILE_NAVBAR:
+                return new NavBarTile(this);
             default:
                 throw new IllegalArgumentException("Bad tile spec: " + tileSpec);
         }
