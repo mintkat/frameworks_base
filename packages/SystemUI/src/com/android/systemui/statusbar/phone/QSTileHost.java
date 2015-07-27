@@ -65,6 +65,7 @@ import com.android.systemui.qs.tiles.ScreenOffTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.ScreenTimeoutTile;
 import com.android.systemui.qs.tiles.SyncTile;
+import com.android.systemui.qs.tiles.ThemesTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.settings.CurrentUserTracker;
 import com.android.systemui.statusbar.CustomTileData;
@@ -381,6 +382,8 @@ public class QSTileHost implements QSTile.Host {
                 return new PieControlTile(this);
             case QSConstants.TILE_NAVBAR:
                 return new NavBarTile(this);
+            case QSConstants.TILE_THEMES:
+                return new ThemesTile(this);
             default:
                 throw new IllegalArgumentException("Bad tile spec: " + tileSpec);
         }
