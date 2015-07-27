@@ -3307,6 +3307,13 @@ public final class Settings {
                 "mute_annoying_notifications_threshold";
 
         /**
+         * Whether to enable status and navigation bar color in battery saver mode.
+         *
+         * @hide
+         */
+        public static final String BATTERY_SAVER_MODE_COLOR = "battery_save_mode_color";
+
+        /**
          * show clear all recents button
          *  @hide
          */
@@ -4130,13 +4137,6 @@ public final class Settings {
          * @hide
          */
         public static final String PA_PIE_CHEVRON = "pa_pie_chevron";
-
-        /**
-         * Defines the status and navigation bar color is battery safe mode is enabled.
-         *
-         * @hide
-         */
-        public static final String BATTERY_SAVER_MODE_COLOR = "battery_save_mode_color";
 
         /**
          * Change the screenshot delay
