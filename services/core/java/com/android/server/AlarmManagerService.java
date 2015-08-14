@@ -82,6 +82,7 @@ import com.android.internal.util.cm.QSUtils.OnQSChanged;
 
 import cyanogenmod.app.CMStatusBarManager;
 import cyanogenmod.app.CustomTile;
+import libcore.icu.TimeZoneNames;
 
 class AlarmManagerService extends SystemService {
     // The threshold for how long an alarm can be late before we print a
@@ -1966,6 +1967,11 @@ class AlarmManagerService extends SystemService {
                 }
                 scheduleTimeTickEvent();
             } else if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED)) {
+                // If a device was boot up with date 1970 and then date changes to some later time,
+                // the wrong string might be cached if the country's zones have changed.
+                // See external/icu/icu4c/source/data/misc/metaZones.txt
+                TimeZoneNames.rebuildLocaleZoneCache(null);
+
                 // Since the kernel does not keep track of DST, we need to
                 // reset the TZ information at the beginning of each day
                 // based off of the current Zone gmt offset + userspace tracked
