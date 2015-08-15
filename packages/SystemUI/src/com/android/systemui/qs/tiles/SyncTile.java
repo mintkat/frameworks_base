@@ -33,6 +33,10 @@ public class SyncTile extends QSTile<QSTile.BooleanState> {
         super(host);
     }
 
+    public boolean hasSensitiveData() {
+        return true;
+    }
+
     @Override
     protected BooleanState newTileState() {
         return new BooleanState();
