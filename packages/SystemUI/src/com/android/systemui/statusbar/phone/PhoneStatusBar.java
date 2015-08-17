@@ -603,7 +603,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0,
                     UserHandle.USER_CURRENT) == 1;
             mVisualizerEnabled = Settings.Secure.getIntForUser(resolver,
-                    Settings.Secure.LOCKSCREEN_VISUALIZER_ENABLED, 1,
+                    Settings.Secure.LOCKSCREEN_VISUALIZER_ENABLED, 0,
                     UserHandle.USER_CURRENT) != 0;
 
             final int oldClockLocation = mClockLocation;
