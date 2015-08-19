@@ -63,23 +63,19 @@ modifiera det tema som du har tillämpat.</string>
   <string name="adb_both_active_notification_title">ADB över USB och nätverk aktiverat</string>
   <string name="adb_active_generic_notification_message">Tryck på för att inaktivera felsökning.</string>
   <string name="usb_choose_notification_title">Tryck för att välja USB-alternativ.</string>
-  <string name="adb_active_custom_tile">ADB - <xliff:g id="adb_type" example="USB">%1$s</xliff:g></string>
-  <string name="adb_active_custom_tile_both">USB &amp; nätverk</string>
-  <string name="adb_active_custom_tile_usb">USB</string>
-  <string name="adb_active_custom_tile_net">Nätverk</string>
   <string name="permlab_interceptPackageLaunch">avbryt app-start</string>
   <string name="permdesc_interceptPackageLaunch">Tillåter en app att stoppa uppstart av andra appar</string>
   <string name="app_ops_access_camera">få tillgång till kamera</string>
   <string name="app_ops_access_location">få tillgång till din plats</string>
   <string name="app_ops_access_notifications">läsa dina aviseringar</string>
-  <string name="app_ops_activate_vpn">aktivera en VPN</string>
+  <string name="app_ops_activate_vpn">Aktivera en VPN</string>
   <string name="app_ops_alarm_wakeup">väcka enheten</string>
   <string name="app_ops_su">få root-åtkomst</string>
   <string name="app_ops_auto_start">starta vid uppstart</string>
   <string name="app_ops_delete_call_log">ta bort samtalsloggen</string>
   <string name="app_ops_delete_contacts">ta bort dina kontakter</string>
   <string name="app_ops_delete_mms">ta bort dina MMS-meddelanden</string>
-  <string name="app_ops_delete_sms">ta bort dina SMS-meddelanden</string>
+  <string name="app_ops_delete_sms">ta bort SMS-meddelanden</string>
   <string name="app_ops_draw_on_top">rita fönster överst</string>
   <string name="app_ops_get_usage_stats">få användningsstatistik för app</string>
   <string name="app_ops_keep_device_awake">hålla din enhet vaken</string>
@@ -89,7 +85,7 @@ modifiera det tema som du har tillämpat.</string>
   <string name="app_ops_modify_clipboard">modifiera urklipp</string>
   <string name="app_ops_modify_contacts">uppdatera dina kontakter</string>
   <string name="app_ops_modify_settings">uppdatera systeminställningar</string>
-  <string name="app_ops_mute_unmute_microphone">slå på/av mikrofonen</string>
+  <string name="app_ops_mute_unmute_microphone">Slå på/av mikrofonen</string>
   <string name="app_ops_play_audio">spela ljud</string>
   <string name="app_ops_post_notification">skicka en avisering</string>
   <string name="app_ops_project_media">projektmedia</string>
@@ -138,12 +134,16 @@ modifiera det tema som du har tillämpat.</string>
   <string name="perf_profile_perf">Hög prestanda</string>
   <string name="theme_install_error_title">Kunde inte installera tema</string>
   <string name="theme_install_error_message">%s kunde inte installeras</string>
+  <string name="android_installing_apk">Installerar app
+        <xliff:g id="number" example="123">%1$d</xliff:g> av
+        <xliff:g id="number" example="123">%2$d</xliff:g>.</string>
+  <string name="android_installing_title">Android installeras\u2026</string>
   <string name="theme_reset_notification_title">Återställning av tema</string>
   <string name="theme_reset_notification_body">Systemtemat kommer återställas på grund av att appen kraschat flera gånger.</string>
   <string name="stylus_app_not_installed">%s är inte installerad</string>
   <string name="permlab_interceptSmsSent">avlyssna utgående SMS</string>
-  <string name="permdesc_interceptSmsSent">Tillåter appen att fånga upp ett utgående SMS. Illasinnade appar kan använda detta för att förhindra utgående SMS.</string>
-  <string name="permlab_accessTorchService">få tillgång till ficklampstjänsten</string>
+  <string name="permdesc_interceptSmsSent">Tillåter appen att avlyssna ett utgående SMS. Illasinnade appar kan använda detta för att förhindra utgående SMS.</string>
+  <string name="permlab_accessTorchService">få tillgång till ficklampa</string>
   <string name="permdesc_accessTorchService">Tillåter en app att få tillgång till ficklampstjänsten. Bör aldrig vara nödvändigt för vanliga appar.</string>
   <string name="permlab_preventpower">åsidosätta strömbrytaren</string>
   <string name="permdesc_preventpower">Tillåter en app att åsidosätta strömbrytaren.</string>
@@ -180,9 +180,9 @@ modifiera det tema som du har tillämpat.</string>
   <string name="usb_ext_media_nofs_notification_title">Tom USB-lagringsenhet</string>
   <string name="usb_ext_media_nofs_notification_message">USB-lagringsenheten är tom eller har ett filsystem som inte stöds.</string>
   <string name="usb_ext_media_unmountable_notification_title">Skadad USB-lagringsenhet</string>
-  <string name="usb_ext_media_unmountable_notification_message">USB-lagringsenheten är skadad. Försök formattera den på nytt.</string>
+  <string name="usb_ext_media_unmountable_notification_message">USB-lagringsenheten är skadad. Försök formatera den på nytt.</string>
   <string name="usb_ext_media_badremoval_notification_title">USB-lagring kopplades oväntat bort</string>
-  <string name="usb_ext_media_badremoval_notification_message">Avmontera USB-lagringen innan du tar bort den för att undvika förlust av data.</string>
+  <string name="usb_ext_media_badremoval_notification_message">Avmontera USB-lagringen innan den tas bort för att undvika dataförlust.</string>
   <string name="usb_ext_media_safe_unmount_notification_title">USB-lagringsenhet kan tryggt tas bort</string>
   <string name="usb_ext_media_safe_unmount_notification_message">Du kan tryggt avlägsna USB-lagringsenheten.</string>
   <string name="usb_ext_media_nomedia_notification_title">USB-lagringsenheten togs bort</string>
@@ -198,13 +198,6 @@ modifiera det tema som du har tillämpat.</string>
   <string name="live_display_outdoor">Utomhus (stark sol)</string>
   <string name="live_display_outdoor_summary">Använd endast utomhusläge</string>
   <string name="live_display_hint">LiveDisplay kan minska överansträngning av ögon och hjälpa dig med nattsömnen. Klicka här för att prova!</string>
-  <string name="lock_to_app_toast_no_navbar">För att frigöra denna skärm, tryck och håll nere Bakåt-knappen.</string>
-  <string name="quick_settings_tile_flashlight_not_title">Ficklampan är på</string>
-  <string name="quick_settings_tile_flashlight_not_summary">Tryck på för att stänga av</string>
-  <string name="storage_sd_dock_card">SD-kort i docka</string>
-  <string name="fingerprint_default_name">Fingeravtryck <xliff:g id="number">%d</xliff:g></string>
-  <string name="permlab_accessFingerprintService">tillgång till fingeravtryckstjänst</string>
-  <string name="permdesc_accessFingerprintService">Tillåter en app att komma åt fingeravtryckstjänst. Appen kan lägga till, ta bort, byta namn och autentisera mot fingeravtryck</string>
-  <string name="permlab_resetBatteryStats">återställa batteristatistik</string>
-  <string name="permdesc_resetBatteryStats">Tillåter en app att återställa nuvarande lågnivådata för batterianvändning.</string>
+  <string name="lock_to_app_toast_no_navbar">För att frigöra denna skärm, tryck och håll nere Meny-knappen.</string>
+  <string name="lock_to_app_description_no_navbar">Skärmfästning låser displayen i en unik vy.\n\nFör att frigöra, tryck och håll nere Meny-knappen.</string>
 </resources>

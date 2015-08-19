@@ -17,10 +17,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="keyguard_perso_locked_message">ಸಿಮ್/ಆರ್‍ಯುಐಎಂ ಪರ್ಸೊ ಲಾಕ್ ಆಗಿದೆ</string>
+  <string name="keyguard_perso_locked_message">ಸಿಮ್/RUIM ಪರ್ಸೊ ಲಾಕ್ಡ್</string>
   <string name="keyguard_accessibility_status">"ಸ್ಥಿತಿ"</string>
-  <string name="kg_dismiss">ವಜಾಮಾಡಿ</string>
-  <string name="kg_slot_name">ಸ್ಲಾಟ್ <xliff:g id="number">%d</xliff:g>: ಹೊಸ ಸಿಮ್ ಕಾರ್ಡ್\u0020</string>
+  <string name="kg_dismiss">ವಜಾಮಾಡು</string>
+  <string name="kg_slot_name">ಸ್ಲಾಟ್<xliff:g id="number">%d</xliff:g>: ನವೀನ ಸಿಮ್ ಕಾರ್ಡ್\u0020</string>
   <string name="lockscreen_sim_error_message_short">ಅಮಾನ್ಯ ಕಾರ್ಡ್.</string>
   <plurals name="kg_password_default_pin_message">
     <item quantity="one">ಸಿಮ್ ಪಿನ್ ಬರೆಯಿರಿ, ನಿಮಗೆ<xliff:g id="number">%d</xliff:g> ಪ್ರಯತ್ನ ಉಳಿದಿದೆ ನಂತರ ನಿಮ್ಮ ಸಾಧನವನ್ನು ಅನ್‍ಲಾಕ್ ಮಾಡಲು ಮೊದಲು ನಿಮ್ಮ ವಾಹಕಕ್ಕೆ ಸಂಪರ್ಕಿಸಬೇಕಾಗುತ್ತದೆ.</item>

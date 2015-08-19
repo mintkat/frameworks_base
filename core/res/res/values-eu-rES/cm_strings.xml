@@ -17,9 +17,21 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="profileNameDefault">Lehenetsia</string>
+  <string name="profileNameWork">Lanean</string>
+  <string name="profileNameHome">Etxean</string>
+  <string name="profileNameSilent">Isilik</string>
+  <string name="profileNameNight">Gaua</string>
+  <string name="profileNameAutomobile">Kotxean</string>
+  <string name="profileGroupPhone">Telefonoa</string>
+  <string name="profileGroupCalendar">Egutegia</string>
+  <string name="profileGroupGmail">Gmail</string>
+  <string name="profileGroupEmail">Eposta</string>
+  <string name="profileGroupSMS">SMS</string>
+  <string name="wildcardProfile">Besteak</string>
+  <string name="profile_none">Bat ere ez</string>
   <string name="profile_picker_title">Profilak</string>
   <string name="global_action_choose_profile">Profila</string>
-  <string name="profile_none">Bat ere ez</string>
   <string name="global_action_screenshot">Pantaila-argazkia</string>
   <string name="permlab_receiveProtectedSms">jaso SMS babestua</string>
   <string name="permdesc_receiveProtectedSms">SMS mezu babestua jasotzea ahalbidetzen dio aplikazioari.</string>
