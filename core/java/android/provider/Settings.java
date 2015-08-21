@@ -6971,6 +6971,13 @@ public final class Settings {
         public static final String THIRD_PARTY_KEYGUARD_COMPONENT = "third_party_keyguard";
 
         /**
+         * Whether to enable/disable device policy override.
+         * @hide
+         */
+        public static final String ENABLE_DEVICE_POLICY_OVERRIDE
+                = "enable_device_policy_override";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
