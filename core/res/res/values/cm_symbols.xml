@@ -25,6 +25,9 @@
          this.
     -->
 
+    <!-- Proximity check on screen on default -->
+    <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
+
     <!-- SD card storage notification -->
     <java-symbol type="string" name="sd_ext_media_badremoval_notification_message" />
     <java-symbol type="string" name="sd_ext_media_badremoval_notification_title" />

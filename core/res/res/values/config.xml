@@ -2095,6 +2095,7 @@
     -->
     <bool name="config_proximityCheckOnWake">false</bool>
     <integer name="config_proximityCheckTimeout">250</integer>
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
     <!-- When config_LTE_RSRP_threshold_type is set to "custom" -->
     <integer-array name="config_LTE_RSRP_custom_levels">
