@@ -377,11 +377,14 @@ public class RecentController implements RecentPanelView.OnExitListener,
     private WindowManager.LayoutParams generateLayoutParameter(boolean forAppSidebar) {
         final int width;
         if (forAppSidebar){
-            int appSidebarPadding = mContext.getResources().getDimensionPixelSize(R.dimen.recent_app_sidebar_item_padding);
-            width = (int) (mContext.getResources().getDimensionPixelSize(R.dimen.recent_app_sidebar_item_size)
+            int appSidebarPadding = mContext.getResources()
+                    .getDimensionPixelSize(R.dimen.recent_app_sidebar_item_padding);
+            width = (int) (mContext.getResources()
+                    .getDimensionPixelSize(R.dimen.recent_app_sidebar_item_size)
                     * mAppSidebarScaleFactor + appSidebarPadding * 2f);
         } else {
-            width = (int) (mContext.getResources().getDimensionPixelSize(R.dimen.recent_width) * mScaleFactor);
+            width = (int) (mContext.getResources().getDimensionPixelSize(R.dimen.recent_width)
+                    * mScaleFactor);
         }
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 width,

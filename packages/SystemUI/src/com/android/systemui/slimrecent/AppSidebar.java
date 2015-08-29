@@ -50,16 +50,19 @@ import java.util.ArrayList;
 public class AppSidebar extends FrameLayout {
     private static final String TAG = "SlimRecentAppSidebar";
 
-    private static final LinearLayout.LayoutParams SCROLLVIEW_LAYOUT_PARAMS = new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            1.0f    );
+    private static final LinearLayout.LayoutParams SCROLLVIEW_LAYOUT_PARAMS =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    1.0f
+            );
 
-    private static LinearLayout.LayoutParams ITEM_LAYOUT_PARAMS = new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            1.0f
-    );
+    private static LinearLayout.LayoutParams ITEM_LAYOUT_PARAMS =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    1.0f
+            );
 
     public static float DEFAULT_SCALE_FACTOR = 1.0f;
 
@@ -93,8 +96,10 @@ public class AppSidebar extends FrameLayout {
         super(context, attrs, defStyle);
         mContext = context;
         Resources resources = context.getResources();
-        mItemTextSize = resources.getDimensionPixelSize(R.dimen.recent_app_sidebar_item_title_text_size);
-        mIconSize = resources.getDimensionPixelSize(R.dimen.recent_app_sidebar_item_size) - mItemTextSize;
+        mItemTextSize = resources
+                .getDimensionPixelSize(R.dimen.recent_app_sidebar_item_title_text_size);
+        mIconSize = resources
+                .getDimensionPixelSize(R.dimen.recent_app_sidebar_item_size) - mItemTextSize;
         setScaledSizes();
     }
 
@@ -142,7 +147,8 @@ public class AppSidebar extends FrameLayout {
     }
     private int getLabelColor(){
         return mLabelColor == 0x00ffffff ?
-                mContext.getResources().getColor(R.color.recents_task_bar_light_text_color) : mLabelColor;
+                mContext.getResources().getColor(R.color.recents_task_bar_light_text_color) :
+                mLabelColor;
     }
 
     @Override
@@ -185,7 +191,8 @@ public class AppSidebar extends FrameLayout {
         Runnable mSnapRunnable = new Runnable(){
             @Override
             public void run() {
-                int mSelectedItem = ((getScrollY() + (ITEM_LAYOUT_PARAMS.height / 2)) / ITEM_LAYOUT_PARAMS.height);
+                int mSelectedItem = ((getScrollY() + (ITEM_LAYOUT_PARAMS.height / 2)) /
+                        ITEM_LAYOUT_PARAMS.height);
                 int scrollTo = mSelectedItem * ITEM_LAYOUT_PARAMS.height;
                 smoothScrollTo(0, scrollTo);
                 mSnapTrigger = false;
@@ -246,10 +253,12 @@ public class AppSidebar extends FrameLayout {
             boolean requireNewSetup = false;
 
             boolean hideLabels = Settings.System.getIntForUser(
-                    resolver, Settings.System.RECENT_APP_SIDEBAR_DISABLE_LABELS, 0, UserHandle.USER_CURRENT) == 1;
+                    resolver, Settings.System.RECENT_APP_SIDEBAR_DISABLE_LABELS, 0,
+                    UserHandle.USER_CURRENT) == 1;
 
             int labelColor = Settings.System.getIntForUser(resolver,
-                    Settings.System.RECENT_APP_SIDEBAR_TEXT_COLOR, 0x00ffffff, UserHandle.USER_CURRENT);
+                    Settings.System.RECENT_APP_SIDEBAR_TEXT_COLOR, 0x00ffffff,
+                    UserHandle.USER_CURRENT);
 
             if (hideLabels != mHideTextLabels || labelColor != mLabelColor) {
                 mHideTextLabels = hideLabels;
@@ -260,7 +269,8 @@ public class AppSidebar extends FrameLayout {
             }
 
             int backgroundColor = Settings.System.getIntForUser(resolver,
-                    Settings.System.RECENT_APP_SIDEBAR_BG_COLOR, 0x00ffffff, UserHandle.USER_CURRENT);
+                    Settings.System.RECENT_APP_SIDEBAR_BG_COLOR, 0x00ffffff,
+                    UserHandle.USER_CURRENT);
 
             if (mBackgroundColor != backgroundColor) {
                 mBackgroundColor = backgroundColor;
@@ -309,10 +319,12 @@ public class AppSidebar extends FrameLayout {
         // set the layout height based on the item height we would like and the
         // number of items that would fit at on screen at once given the height
         // of the app sidebar
-        int padding = mContext.getResources().getDimensionPixelSize(R.dimen.recent_app_sidebar_item_padding);
+        int padding = mContext.getResources()
+                .getDimensionPixelSize(R.dimen.recent_app_sidebar_item_padding);
         int desiredItemSize = mScaledIconSize + padding * 2;
         if (!mHideTextLabels) {
-            // add size twice to make sure that the text won't get cut (e.g. "y" being displayed as "v")
+            // add size twice to make sure that the text won't get cut
+            // (e.g. "y" being displayed as "v")
             desiredItemSize += mScaledItemTextSize * 2;
         }
         int numItems = (int)Math.floor(windowHeight / desiredItemSize);
@@ -355,7 +367,8 @@ public class AppSidebar extends FrameLayout {
 
     private TextView createAppItem(ActionConfig config) {
         TextView tv = new TextView(mContext);
-        Drawable icon = ActionHelper.getActionIconImage(mContext, config.getClickAction(), config.getIcon());
+        Drawable icon = ActionHelper.getActionIconImage(mContext, config.getClickAction(),
+                config.getIcon());
         if (icon != null) {
             icon.setBounds(mScaledIconBounds);
             tv.setCompoundDrawables(null, icon, null, null);

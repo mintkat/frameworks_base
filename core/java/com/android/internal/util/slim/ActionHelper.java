@@ -86,8 +86,8 @@ public class ActionHelper {
         return config;
     }
 
-    public static void setRecentAppSidebarConfig(Context context,
-                                                   ArrayList<ActionConfig> actionConfig, boolean reset) {
+    public static void setRecentAppSidebarConfig(
+            Context context, ArrayList<ActionConfig> actionConfig, boolean reset) {
         String config;
         if (reset) {
             config = "";
