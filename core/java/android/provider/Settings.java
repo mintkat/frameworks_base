@@ -4410,6 +4410,12 @@ public final class Settings {
         public static final String TOAST_ICON = "toast_icon";
 
         /**
+         * Statusbar weather font style setting
+         * @hide
+         */
+        public static final String STATUS_BAR_WEATHER_FONT_STYLE = "status_bar_weather_font_style";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
