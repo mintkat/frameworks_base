@@ -271,8 +271,11 @@
   <java-symbol type="integer" name="config_uiThemeMode" />
   <java-symbol type="string" name="theme_auto_switch_mode_error" />
 
-
   <!-- Non-themeable packages -->
   <java-symbol type="array" name="non_themeable_packages" />
+
+  <!-- Custom styles for dialog themes -->
+  <java-symbol type="style" name="Theme.Material.BenzoDark.Dialog" />
+  <java-symbol type="style" name="Theme.Material.BenzoDark.Dialog.Alert" />
 
 </resources>
