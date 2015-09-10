@@ -278,4 +278,8 @@
   <java-symbol type="style" name="Theme.Material.BenzoDark.Dialog" />
   <java-symbol type="style" name="Theme.Material.BenzoDark.Dialog.Alert" />
 
+  <!-- On-The-Go -->
+  <java-symbol type="string" name="global_action_onthego" />
+  <java-symbol type="drawable" name="ic_lock_onthego" />
+
 </resources>
