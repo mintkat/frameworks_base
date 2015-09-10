@@ -54,4 +54,7 @@
     <java-symbol type="string" name="usb_ext_media_unmountable_notification_title" />
     <java-symbol type="string" name="storage_usb" />
 
+    <!-- WiFi turn off notification -->
+    <java-symbol type="string" name="notify_turn_wifi_off_title" />
+
 </resources>
