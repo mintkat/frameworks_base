@@ -4382,7 +4382,7 @@ public class PackageManagerService extends IPackageManager.Stub {
         final boolean isPrebundled = (parseFlags & PackageParser.PARSE_IS_PREBUNDLED_DIR) != 0;
         if (isPrebundled) {
             synchronized (mPackages) {
-                mSettings.readPrebundledPackagesLPr();
+                mSettings.readPrebundledPackagesLPr(UserHandle.USER_CURRENT);
             }
         }
 
@@ -4417,7 +4417,8 @@ public class PackageManagerService extends IPackageManager.Stub {
                             throw PackageManagerException.from(e);
                         }
                         synchronized (mPackages) {
-                            mSettings.markPrebundledPackageInstalledLPr(pkg.packageName);
+                            mSettings.markPrebundledPackageInstalledLPr(UserHandle.USER_CURRENT,
+                                pkg.packageName);
                         }
                     }
                 } catch (PackageManagerException e) {
@@ -4449,7 +4450,7 @@ public class PackageManagerService extends IPackageManager.Stub {
 
         if (isPrebundled) {
             synchronized (mPackages) {
-                mSettings.writePrebundledPackagesLPr();
+                mSettings.writePrebundledPackagesLPr(UserHandle.USER_CURRENT);
             }
         }
     }
@@ -4553,8 +4554,8 @@ public class PackageManagerService extends IPackageManager.Stub {
         if ((parseFlags & PackageParser.PARSE_IS_PREBUNDLED_DIR) != 0) {
             synchronized (mPackages) {
                 PackageSetting existingSettings = mSettings.peekPackageLPr(pkg.packageName);
-                if (mSettings.wasPrebundledPackageInstalledLPr(pkg.packageName) &&
-                        existingSettings == null) {
+                if (mSettings.wasPrebundledPackageInstalledLPr(
+                        UserHandle.USER_CURRENT, pkg.packageName) && existingSettings == null) {
                     // The prebundled app was installed at some point in time, but now it is
                     // gone.  Assume that the user uninstalled it intentionally: do not reinstall.
                     throw new PackageManagerException(INSTALL_FAILED_UNINSTALLED_PREBUNDLE,
