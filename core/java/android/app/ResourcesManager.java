@@ -177,7 +177,7 @@ public class ResourcesManager {
             Configuration overrideConfiguration, CompatibilityInfo compatInfo, IBinder token,
             Context context, boolean isThemeable) {
         final float scale = compatInfo.applicationScale;
-        final ThemeConfig themeConfig = getThemeConfig();
+        final ThemeConfig themeConfig = isThemeable ? getThemeConfig() : null;
         ResourcesKey key = new ResourcesKey(resDir, displayId, overrideConfiguration, scale,
                 isThemeable, themeConfig, token);
         Resources r;
@@ -313,12 +313,23 @@ public class ResourcesManager {
      * @hide
      */
     public Resources getTopLevelThemedResources(String resDir, int displayId, String packageName,
-            String themePackageName, CompatibilityInfo compatInfo, IBinder token,
-            boolean isThemeable) {
+            String themePackageName, Configuration overrideConfiguration,
+            CompatibilityInfo compatInfo, IBinder token, boolean isThemeable) {
         Resources r;
 
-        ResourcesKey key = new ResourcesKey(resDir, displayId, null, 0,
-                isThemeable, null, token);
+        ThemeConfig themeConfig;
+        if (isThemeable) {
+            ThemeConfig.Builder builder = new ThemeConfig.Builder();
+            builder.defaultOverlay(themePackageName);
+            builder.defaultIcon(themePackageName);
+            builder.defaultFont(themePackageName);
+            themeConfig = builder.build();
+        } else {
+            themeConfig = null;
+        }
+
+        ResourcesKey key = new ResourcesKey(resDir, displayId, overrideConfiguration,
+                compatInfo.applicationScale, isThemeable, isThemeable ? themeConfig : null, token);
 
         synchronized (this) {
             WeakReference<Resources> wr = mActiveResources.get(key);
@@ -343,9 +354,15 @@ public class ResourcesManager {
         DisplayMetrics dm = getDisplayMetricsLocked(displayId);
         Configuration config;
         boolean isDefaultDisplay = (displayId == Display.DEFAULT_DISPLAY);
-        if (!isDefaultDisplay) {
+        final boolean hasOverrideConfig = key.hasOverrideConfiguration();
+        if (!isDefaultDisplay || hasOverrideConfig) {
             config = new Configuration(getConfiguration());
-            applyNonDefaultDisplayMetricsToConfigurationLocked(dm, config);
+            if (!isDefaultDisplay) {
+                applyNonDefaultDisplayMetricsToConfigurationLocked(dm, config);
+            }
+            if (hasOverrideConfig) {
+                config.updateFrom(key.mOverrideConfiguration);
+            }
         } else {
             config = getConfiguration();
         }
@@ -353,12 +370,6 @@ public class ResourcesManager {
         boolean iconsAttached = false;
         if (isThemeable) {
             /* Attach theme information to the resulting AssetManager when appropriate. */
-            ThemeConfig.Builder builder = new ThemeConfig.Builder();
-            builder.defaultOverlay(themePackageName);
-            builder.defaultIcon(themePackageName);
-            builder.defaultFont(themePackageName);
-
-            ThemeConfig themeConfig = builder.build();
             attachThemeAssets(assets, themeConfig);
             attachCommonAssets(assets, themeConfig);
             iconsAttached = attachIconAssets(assets, themeConfig);
@@ -367,7 +378,7 @@ public class ResourcesManager {
         if (iconsAttached) setActivityIcons(r);
 
         if (false) {
-            Slog.i(TAG, "Created app resources " + resDir + " " + r + ": "
+            Slog.i(TAG, "Created THEMED app resources " + resDir + " " + r + ": "
                     + r.getConfiguration() + " appScale="
                     + r.getCompatibilityInfo().applicationScale);
         }
