@@ -391,6 +391,17 @@ public class NotificationPanelView extends PanelView implements
         super.onDetachedFromWindow();
         mSecureCameraLaunchManager.destroy();
         mSettingsObserver.unobserve();
+
+        mNotificationStackScroller.setOnHeightChangedListener(null);
+        mNotificationStackScroller.setOverscrollTopChangedListener(null);
+        mNotificationStackScroller.setOnEmptySpaceClickListener(null);
+        mNotificationStackScroller.setScrollView(null);
+
+        mScrollView.setListener(null);
+
+        mQsPanel.setDetailCallback(null);
+        mQsPanel = null;
+        mHeader = null;
     }
 
     private void startQsSizeChangeAnimation(int oldHeight, final int newHeight) {

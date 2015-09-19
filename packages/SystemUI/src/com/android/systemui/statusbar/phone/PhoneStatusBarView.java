@@ -224,7 +224,10 @@ public class PhoneStatusBarView extends PanelBar {
     }
 
     @Override
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        mBarTransitions.cleanup();
+        mNotificationPanel = null;
+        mLastFullyOpenedPanel = null;
     }
 }
