@@ -47,7 +47,9 @@ public class VolumeTile extends QSTile<QSTile.BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         state.visible = true;
         state.label = mContext.getString(R.string.quick_settings_volume_panel_label);
-        state.icon = ResourceIcon.get(R.drawable.ic_qs_volume_panel); // TODO needs own icon, edit android:pathData
+        state.contentDescription = mContext.getString(
+                R.string.accessibility_quick_settings_volume_panel);
+        state.icon = ResourceIcon.get(R.drawable.ic_qs_volume_panel); // TODO needs own icon
     }
     
     @Override
