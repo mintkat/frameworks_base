@@ -33,7 +33,7 @@ import com.android.systemui.R;
 public class QueueViewRow extends RelativeLayout {
 
     private static final String TAG = QueueViewRow.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private UserRowInteractionListener mHotSpotChangeListener;
 

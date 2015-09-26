@@ -69,7 +69,7 @@ import java.util.TimerTask;
 import java.util.Timer;
 
 public class TaskManager {
-    final boolean DEBUG = true;
+    final boolean DEBUG = false;
     final String TAG = "TaskManager";
 
     private static final int MSG_KILL_ONE = 1;
