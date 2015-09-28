@@ -1522,6 +1522,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             public void onClick(View arg0) {
                 mShowTaskList = !mShowTaskList;
                 mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
+                mQSPanel.vibrateTile(20);
             }
         });
         if (mRecreating) {
