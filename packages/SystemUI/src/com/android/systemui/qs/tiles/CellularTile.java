@@ -105,11 +105,6 @@ public class CellularTile extends QSTile<QSTile.SignalState> {
     }
 
     @Override
-    public boolean hasDetails() {
-        return true;
-    }
-
-    @Override
     protected void handleUpdateState(SignalState state, Object arg) {
         state.visible = mController.hasMobileDataFeature();
         if (!state.visible) return;

@@ -97,36 +97,24 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleClick() {
-        /* For consistency, I'm moving the showDetail to secondary click
-         * as one can now click on tile's label even if the tile is not
-         * enlarged. If you think this is not the desire behaviour we should
-         * think in an alternative to keep the consistency along the tiles.
-         * In other words, I suggest a...
-         * TODO: a menu/a way to select which tiles do have the detailsView
-         *       enabled or not. */
         if(mController.isAdvancedSettingsEnabled()) {
-            //showDetail(true);
+            showDetail(true);
+        } else {
+            mController.setLocationEnabled(!mController.isLocationEnabled());
+            mEnable.setAllowAnimation(true);
+            mDisable.setAllowAnimation(true);
+            qsCollapsePanel();
         }
-        mController.setLocationEnabled(!mController.isLocationEnabled());
-        mEnable.setAllowAnimation(true);
-        mDisable.setAllowAnimation(true);
     }
 
     @Override
     protected void handleSecondaryClick() {
-        if(mController.isAdvancedSettingsEnabled()) {
-            showDetail(true);
-        }
+        showDetail(true);
     }
 
     @Override
     protected void handleLongClick() {
         showDetail(true);
-    }
-
-    @Override
-    public boolean hasDetails() {
-        return mController.isAdvancedSettingsEnabled();
     }
 
     @Override

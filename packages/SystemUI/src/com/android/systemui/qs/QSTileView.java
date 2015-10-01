@@ -64,20 +64,12 @@ public class QSTileView extends ViewGroup {
 
     private TextView mLabel;
     private QSDualTileLabel mDualLabel;
-    private SHAPE mShape = SHAPE.NONE;
+    private boolean mDual;
     private OnClickListener mClickPrimary;
     private OnClickListener mClickSecondary;
     private OnLongClickListener mLongClick;
     private Drawable mTileBackground;
     private RippleDrawable mRipple;
-
-    public enum SHAPE {
-        DUAL,   /* The standard enlarged tile */
-        /* TODO: DUAL_NODETAILS, A enlarged tile which do NOT have a detailsView
-         * so there is no need to have the tile's label clickable */
-        SMALL,  /* A non-enlarged tile which have a detailsView/secondaryClick */
-        NONE    /* The standard non-enlarged tile */
-    }
 
     public QSTileView(Context context) {
         super(context);
@@ -155,108 +147,68 @@ public class QSTileView extends ViewGroup {
             mLabel = null;
         }
         final Resources res = mContext.getResources();
-        switch (mShape) {
-            case DUAL:
-                mDualLabel = new QSDualTileLabel(mContext);
-                mDualLabel.setId(android.R.id.title);
-                mDualLabel.setBackgroundResource(R.drawable.btn_borderless_rect);
-                mDualLabel.setFirstLineCaret(res.getDrawable(R.drawable.qs_dual_tile_caret));/*TODO*/
-                mDualLabel.setTextColor(res.getColor(R.color.qs_tile_text));
-                mDualLabel.setPadding(0, mDualTileVerticalPaddingPx, 0, mDualTileVerticalPaddingPx);
-                mDualLabel.setTypeface(CONDENSED);
-                mDualLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        res.getDimensionPixelSize(R.dimen.qs_tile_text_size));
-                mDualLabel.setClickable(true);
-                mDualLabel.setOnClickListener(mClickSecondary);
-                mDualLabel.setFocusable(true);
-                if (labelText != null) {
-                    mDualLabel.setText(labelText);
-                }
-                if (labelDescription != null) {
-                    mDualLabel.setContentDescription(labelDescription);
-                }
-                addView(mDualLabel);
-                break;
-
-            case SMALL:
-                /* TODO */
-                mLabel = new TextView(mContext);
-                mLabel.setId(android.R.id.title);
-                mLabel.setTextColor(res.getColor(R.color.qs_tile_text));
-                mLabel.setGravity(Gravity.CENTER_HORIZONTAL);
-                mLabel.setMinLines(2);
-                mLabel.setPadding(0, 0, 0, 0);
-                mLabel.setTypeface(CONDENSED);
-                mLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        res.getDimensionPixelSize(R.dimen.qs_tile_text_size));
-                mLabel.setClickable(true);
-                mLabel.setOnClickListener(mClickSecondary);
-                mLabel.setFocusable(true);
-                if (labelText != null) {
-                    mLabel.setText(labelText);
-                }
-                addView(mLabel);
-                break;
-
-            case NONE:
-                mLabel = new TextView(mContext);
-                mLabel.setId(android.R.id.title);
-                mLabel.setTextColor(res.getColor(R.color.qs_tile_text));
-                mLabel.setGravity(Gravity.CENTER_HORIZONTAL);
-                mLabel.setMinLines(2);
-                mLabel.setPadding(0, 0, 0, 0);
-                mLabel.setTypeface(CONDENSED);
-                mLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        res.getDimensionPixelSize(R.dimen.qs_tile_text_size));
-                mLabel.setClickable(false);
-                if (labelText != null) {
-                    mLabel.setText(labelText);
-                }
-                addView(mLabel);
-                break;
+        if (mDual) {
+            mDualLabel = new QSDualTileLabel(mContext);
+            mDualLabel.setId(android.R.id.title);
+            mDualLabel.setBackgroundResource(R.drawable.btn_borderless_rect);
+            mDualLabel.setFirstLineCaret(res.getDrawable(R.drawable.qs_dual_tile_caret));
+            mDualLabel.setTextColor(res.getColor(R.color.qs_tile_text));
+            mDualLabel.setPadding(0, mDualTileVerticalPaddingPx, 0, mDualTileVerticalPaddingPx);
+            mDualLabel.setTypeface(CONDENSED);
+            mDualLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    res.getDimensionPixelSize(R.dimen.qs_tile_text_size));
+            mDualLabel.setClickable(true);
+            mDualLabel.setOnClickListener(mClickSecondary);
+            mDualLabel.setFocusable(true);
+            if (labelText != null) {
+                mDualLabel.setText(labelText);
+            }
+            if (labelDescription != null) {
+                mDualLabel.setContentDescription(labelDescription);
+            }
+            addView(mDualLabel);
+        } else {
+            mLabel = new TextView(mContext);
+            mLabel.setId(android.R.id.title);
+            mLabel.setTextColor(res.getColor(R.color.qs_tile_text));
+            mLabel.setGravity(Gravity.CENTER_HORIZONTAL);
+            mLabel.setMinLines(2);
+            mLabel.setPadding(0, 0, 0, 0);
+            mLabel.setTypeface(CONDENSED);
+            mLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    Math.round(res.getDimensionPixelSize(R.dimen.qs_tile_text_size) * mSizeScale));
+            mLabel.setClickable(false);
+            if (labelText != null) {
+                mLabel.setText(labelText);
+            }
+            addView(mLabel);
         }
-
     }
 
-    public boolean setShape(SHAPE shape) {
-        final boolean changed = shape != mShape;
-        mShape = shape;
+    public boolean setDual(boolean dual) {
+        final boolean changed = dual != mDual;
+        mDual = dual;
         if (mTileBackground instanceof RippleDrawable) {
             setRipple((RippleDrawable) mTileBackground);
         }
-        switch (shape) {
-            case DUAL:
-                mTopBackgroundView.setOnClickListener(mClickPrimary);
-                mTopBackgroundView.setOnLongClickListener(mLongClick);
-                setOnClickListener(null);
-                setClickable(false);
-                setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-                mTopBackgroundView.setBackground(mTileBackground);
-                break;
-
-            case SMALL:
-                /* TODO */
-                mTopBackgroundView.setOnClickListener(mClickPrimary);
-                mTopBackgroundView.setOnLongClickListener(mLongClick);
-                mTopBackgroundView.setClickable(true);
-                setOnClickListener(null);
-                setClickable(false);
-                setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-                mTopBackgroundView.setBackground(mTileBackground);
-                break;
-
-            case NONE:
-                mTopBackgroundView.setOnClickListener(null);
-                mTopBackgroundView.setClickable(false);
-                setOnClickListener(mClickPrimary);
-                setOnLongClickListener(mLongClick);
-                setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
-                setBackground(mTileBackground);
-                break;
+        if (dual) {
+            mTopBackgroundView.setOnClickListener(mClickPrimary);
+            mTopBackgroundView.setOnLongClickListener(mLongClick);
+            setOnClickListener(null);
+            setClickable(false);
+            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            mTopBackgroundView.setBackground(mTileBackground);
+        } else {
+            mTopBackgroundView.setOnClickListener(null);
+            mTopBackgroundView.setClickable(false);
+            setOnClickListener(mClickPrimary);
+            setOnLongClickListener(mLongClick);
+            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            setBackground(mTileBackground);
         }
-        mTopBackgroundView.setFocusable(shape == SHAPE.DUAL || shape == SHAPE.SMALL);
-        setFocusable(!(shape == SHAPE.DUAL || shape == SHAPE.SMALL));
-        mDivider.setVisibility(shape == SHAPE.DUAL ? VISIBLE : GONE);
+        mTopBackgroundView.setFocusable(dual);
+        setFocusable(!dual);
+        mDivider.setVisibility(dual ? VISIBLE : GONE);
         if (changed) {
             recreateLabel();
             updateTopPadding();
@@ -295,7 +247,7 @@ public class QSTileView extends ViewGroup {
     }
 
     private View labelView() {
-        return mShape == SHAPE.DUAL ? mDualLabel : mLabel;
+        return mDual ? mDualLabel : mLabel;
     }
 
     @Override
@@ -305,7 +257,7 @@ public class QSTileView extends ViewGroup {
         final int iconSpec = exactly(mIconSizePx);
         mIcon.measure(MeasureSpec.makeMeasureSpec(w, MeasureSpec.AT_MOST), iconSpec);
         labelView().measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(h, MeasureSpec.AT_MOST));
-        if (mShape == SHAPE.DUAL) {
+        if (mDual) {
             mDivider.measure(widthMeasureSpec, exactly(mDivider.getLayoutParams().height));
         }
         int heightSpec = exactly(
@@ -336,7 +288,7 @@ public class QSTileView extends ViewGroup {
         }
         top = mIcon.getBottom();
         top += mTilePaddingBelowIconPx;
-        if (mShape == SHAPE.DUAL) {
+        if (mDual) {
             layout(mDivider, 0, top);
             top = mDivider.getBottom();
         }
@@ -346,7 +298,7 @@ public class QSTileView extends ViewGroup {
     private void updateRippleSize(int width, int height) {
         // center the touch feedback on the center of the icon, and dial it down a bit
         final int cx = width / 2;
-        final int cy = mShape == SHAPE.DUAL ? mIcon.getTop() + mIcon.getHeight() : height / 2;
+        final int cy = mDual ? mIcon.getTop() + mIcon.getHeight() : height / 2;
         final int rad = (int)(mIcon.getHeight() * 1.25f);
         mRipple.setHotspotBounds(cx - rad, cy - rad, cx + rad, cy + rad);
     }
@@ -359,7 +311,7 @@ public class QSTileView extends ViewGroup {
         if (mIcon instanceof ImageView) {
             setIcon((ImageView) mIcon, state);
         }
-        if (mShape == SHAPE.DUAL) {
+        if (mDual) {
             mDualLabel.setText(state.label);
             mDualLabel.setContentDescription(state.dualLabelContentDescription);
             mTopBackgroundView.setContentDescription(state.contentDescription);

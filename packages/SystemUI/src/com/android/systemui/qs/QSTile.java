@@ -184,11 +184,6 @@ public abstract class QSTile<TState extends State> implements Listenable {
         // optional
     }
 
-    public boolean hasDetails() {
-        /* Override and return true if the tile has detailsView/secondaryClick */
-        return false;
-    }
-
     protected void handleRefreshState(Object arg) {
         handleUpdateState(mTmpState, arg);
         final boolean changed = mTmpState.copyTo(mState);
