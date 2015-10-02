@@ -87,6 +87,7 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
     FinishRecentsRunnable mFinishLaunchHomeRunnable;
 
     private PhoneStatusBar mStatusBar;
+    private ReferenceCountedTrigger mExitTrigger;
 
     /**
      * A common Runnable to finish Recents either by calling finish() (with a custom animation) or
@@ -98,6 +99,7 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
     class FinishRecentsRunnable implements Runnable {
         Intent mLaunchIntent;
         ActivityOptions mLaunchOpts;
+        boolean mAbort = false;
 
         /**
          * Creates a finish runnable that starts the specified intent, using the given
@@ -108,8 +110,15 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
             mLaunchOpts = opts;
         }
 
+        public void setAbort(boolean run) {
+            this.mAbort = run;
+        }
+
         @Override
         public void run() {
+            if (mAbort) {
+                return;
+            }
             // Finish Recents
             if (mLaunchIntent != null) {
                 if (mLaunchOpts != null) {
@@ -355,13 +364,26 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
         return false;
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus && mExitTrigger != null && mExitTrigger.getCount() > 0) {
+            // we are animating recents out and the window has lost focus during the
+            // animation. we need to stop everything we're doing now and get out
+            // without any animations (since we were already animating)
+            mFinishLaunchHomeRunnable.setAbort(true);
+            finish();
+            overridePendingTransition(0, 0);
+        }
+    }
+
     /** Dismisses Recents directly to Home. */
     void dismissRecentsToHomeRaw(boolean animated) {
         if (animated) {
-            ReferenceCountedTrigger exitTrigger = new ReferenceCountedTrigger(this,
+            mExitTrigger = new ReferenceCountedTrigger(this,
                     null, mFinishLaunchHomeRunnable, null);
             mRecentsView.startExitToHomeAnimation(
-                    new ViewAnimation.TaskViewExitContext(exitTrigger));
+                    new ViewAnimation.TaskViewExitContext(mExitTrigger));
         } else {
             mFinishLaunchHomeRunnable.run();
         }
@@ -477,6 +499,9 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
     @Override
     protected void onStop() {
         super.onStop();
+
+        mExitTrigger = null;
+
         RecentsTaskLoader loader = RecentsTaskLoader.getInstance();
         SystemServicesProxy ssp = loader.getSystemServicesProxy();
         AlternateRecentsComponent.notifyVisibilityChanged(this, ssp, false);
