@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 The Android Open Source Project
+<!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,7 +14,15 @@
      limitations under the License.
 -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:shape="rectangle">
-    <solid android:color="@color/item_doc_list_background_activated" />
-</shape>
+<!-- Colors specific to Material themes. -->
+<resources>
+    <!-- Primary & accent colors -->
+    <color name="material_grey_900">#ff21272b</color>
+    <color name="material_grey_850">#ff21272b</color>
+    <color name="material_grey_800">#ff263238</color>
+    <color name="material_grey_600">#ff546e7a</color>
+    <color name="material_grey_300">#ff90a4ae</color>
+    <color name="material_grey_100">#ffcfd8dc</color>
+    <color name="material_grey_50">#ffeceff1</color>
+    <color name="material_deep_teal_200">#ff009688</color>
+</resources>
