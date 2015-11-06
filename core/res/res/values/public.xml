@@ -2644,7 +2644,7 @@
     <public type="attr" name="supportsLaunchVoiceAssistFromKeyguard" id="0x010104f1" />
 
 
-  <public type="style" name="Widget.Material.Button.Colored" />
+  <public type="style" name="Widget.Material.Button.Colored" id="0x010302d3" />
   <public type="style" name="Theme.Material.DayNight" />
   <public type="style" name="Theme.Material.DayNight.DarkActionBar" />
   <public type="style" name="Theme.Material.DayNight.Dialog" />
