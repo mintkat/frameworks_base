@@ -165,6 +165,7 @@ public class NavigationBarView extends LinearLayout {
     private boolean mWakeAndUnlocking;
 
     private GestureDetector mDoubleTapGesture;
+    private boolean mDoubleTapToSleep;
 
     private class NavTransitionListener implements TransitionListener {
         private boolean mBackTransitioning;
@@ -224,6 +225,9 @@ public class NavigationBarView extends LinearLayout {
     private final OnTouchListener mNavButtonsTouchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+ 	if (mDoubleTapToSleep) {
+                     mDoubleTapGesture.onTouchEvent(event);
+                }
                 onNavButtonTouched();
             return true;
         }
@@ -337,6 +341,9 @@ public class NavigationBarView extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+	if (mDoubleTapToSleep) {
+            mDoubleTapGesture.onTouchEvent(event);
+        }
         if (!mInEditMode && mTaskSwitchHelper.onTouchEvent(event)) {
             return true;
         }
@@ -346,9 +353,6 @@ public class NavigationBarView extends LinearLayout {
         if (mDimNavButtonsTouchAnywhere) {
             onNavButtonTouched();
         }
-        if (Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.DOUBLE_TAP_SLEEP_NAVBAR, 1) == 1)
-            mDoubleTapGesture.onTouchEvent(event);
 
         return super.onTouchEvent(event);
     }
@@ -1052,6 +1056,9 @@ public class NavigationBarView extends LinearLayout {
                     UserHandle.USER_CURRENT);
             mDimNavButtonsTouchAnywhere = (Settings.System.getIntForUser(resolver,
                     Settings.System.DIM_NAV_BUTTONS_TOUCH_ANYWHERE, 0,
+                    UserHandle.USER_CURRENT) == 1);
+            mDoubleTapToSleep = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOUBLE_TAP_SLEEP_NAVBAR, 0,
                     UserHandle.USER_CURRENT) == 1);
         }
     }
