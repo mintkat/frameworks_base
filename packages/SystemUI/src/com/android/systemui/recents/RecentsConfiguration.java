@@ -302,7 +302,7 @@ public class RecentsConfiguration {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             mRecentsSearchbar = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.RECENTS_SEARCH_BAR, 1) == 1;
+                    Settings.System.RECENTS_SEARCH_BAR, 0) == 1;
         }
 
         @Override
