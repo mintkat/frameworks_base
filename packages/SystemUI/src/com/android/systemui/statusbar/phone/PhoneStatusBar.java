@@ -109,6 +109,7 @@ import android.view.ThreadedRenderer;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
@@ -889,7 +890,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mStatusBarWindow = new StatusBarWindowView(mContext, null);
         mStatusBarWindow.setService(this);
-        
+
         super.start(); // calls createAndAddWindows()
 
         mMediaSessionManager
@@ -1002,9 +1003,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 (NavigationBarView) View.inflate(context, R.layout.navigation_bar, null);
         }
 
+        if (!mRecreating) {
         addGestureAnywhereView();
         addSidebarView();
         addAppCircleSidebar();
+        }
 
         mNavigationBarView.setDisabledFlags(mDisabled1);
         mNavigationBarView.setBar(this);
@@ -1231,7 +1234,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         // Task manager
         mTaskManagerPanel =
-                (LinearLayout) mStatusBarWindow.findViewById(R.id.task_manager_panel);
+                (LinearLayout) mStatusBarWindowContent.findViewById(R.id.task_manager_panel);
         mTaskManager = new TaskManager(mContext, mTaskManagerPanel);
         mTaskManager.setActivityStarter(this);
         mTaskManagerButton = (ImageButton) mHeader.findViewById(R.id.task_manager_button);
@@ -1242,6 +1245,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
             }
         });
+        if (mRecreating) {
+            mHeader.setTaskManagerEnabled(mShowTaskManager);
+            mNotificationPanel.setTaskManagerEnabled(mShowTaskManager);
+            mShowTaskList = false;
+        }
 
         // User info. Trigger first load.
         mHeader.setUserInfoController(mUserInfoController);
@@ -3677,7 +3685,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mCommandQueue.resume();
                 mRecreating = false;
             }
-
+        });
         // restart the keyguard so it picks up the newly created ScrimController
         startKeyguard();
 

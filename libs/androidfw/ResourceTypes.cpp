@@ -6215,7 +6215,7 @@ status_t ResTable::parsePackage(const ResTable_package* const pkg,
                 TypeList& typeList = group->types.editItemAt(typeIndex);
                 if (!typeList.isEmpty()) {
                     const Type* existingType = typeList[0];
-                    if (existingType->entryCount != newEntryCount && idmapIndex < 0) {
+                    if (existingType->entryCount != newEntryCount) {
                         ALOGV("ResTable_typeSpec entry count inconsistent: given %d, previously %d",
                                 (int) newEntryCount, (int) existingType->entryCount);
                         // We should normally abort here, but some legacy apps declare
@@ -6790,7 +6790,7 @@ bool ResTable::isResTypeAllowed(const char* type) const {
 bool ResTable::isDynamicPackageId(const uint32_t pkgId) const {
     return pkgId != APP_PACKAGE_ID && pkgId != SYS_PACKAGE_ID
             && pkgId != OVERLAY_APP_PACKAGE_ID && pkgId != OVERLAY_SYS_PACKAGE_ID
-            && pkgId != OVERLAY_COMMON_PACKAGE_ID && pkgId != CMSDK_PACKAGE_ID;
+            && pkgId != OVERLAY_COMMON_PACKAGE_ID;
 }
 
 status_t ResTable::removeIdmappedTypesFromPackageGroup(PackageGroup* packageGroup) const {
