@@ -48,4 +48,7 @@
     <!-- Navigation button ripple color -->
     <color name="navbutton_ripple_color">#FFFFFFFF</color>
 
+    <!-- Volume slider -->
+    <color name="volume_slider_active">@color/system_accent_color</color>
+
 </resources>
