@@ -149,4 +149,8 @@ public class ZenFooter extends LinearLayout {
         mController.removeCallback(mZenModeCallback);
     }
 
+    public void cleanup() {
+        mController.removeCallback(mZenModeCallback);
+    }
+
 }
