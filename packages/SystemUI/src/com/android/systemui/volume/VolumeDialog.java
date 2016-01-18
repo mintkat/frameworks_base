@@ -969,6 +969,12 @@ public class VolumeDialog {
         }
     };
 
+    public void cleanup() {
+        mController.removeCallback(mControllerCallbackH);
+        mZenFooter.cleanup();
+        mAccessibility.cleanup();
+    }
+
     private final class H extends Handler {
         private static final int SHOW = 1;
         private static final int DISMISS = 2;
@@ -1091,26 +1097,7 @@ public class VolumeDialog {
 
         public void init() {
             mMgr = (AccessibilityManager) mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
-            mDialogView.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
-                @Override
-                public void onViewDetachedFromWindow(View v) {
-                    if (D.BUG) Log.d(TAG, "onViewDetachedFromWindow");
-                    // noop
-                }
-
-                @Override
-                public void onViewAttachedToWindow(View v) {
-                    if (D.BUG) Log.d(TAG, "onViewAttachedToWindow");
-                    updateFeedbackEnabled();
-                }
-            });
-            mDialogView.setAccessibilityDelegate(this);
-            mMgr.addAccessibilityStateChangeListener(new AccessibilityStateChangeListener() {
-                @Override
-                public void onAccessibilityStateChanged(boolean enabled) {
-                    updateFeedbackEnabled();
-                }
-            });
+            mDialogView.addOnAttachStateChangeListener(mOnAttachStateChangeListener);
             updateFeedbackEnabled();
         }
 
@@ -1119,6 +1106,10 @@ public class VolumeDialog {
                 AccessibilityEvent event) {
             rescheduleTimeoutH();
             return super.onRequestSendAccessibilityEvent(host, child, event);
+        }
+
+        public void cleanup() {
+            mDialogView.removeOnAttachStateChangeListener(mOnAttachStateChangeListener);
         }
 
         private void updateFeedbackEnabled() {
@@ -1136,6 +1127,21 @@ public class VolumeDialog {
             }
             return false;
         }
+
+        private OnAttachStateChangeListener mOnAttachStateChangeListener =
+                new OnAttachStateChangeListener() {
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                if (D.BUG) Log.d(TAG, "onViewDetachedFromWindow");
+                // noop
+            }
+
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                if (D.BUG) Log.d(TAG, "onViewAttachedToWindow");
+                updateFeedbackEnabled();
+            }
+        };
     }
 
     private static class VolumeRow {
