@@ -1571,6 +1571,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    //App picker
+    private final View.OnClickListener mAppPickerClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            appPicker();
+        }
+    };
+
     private void awakenDreams() {
         if (mDreamManager != null) {
             try {
@@ -1747,13 +1754,19 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 
+    private void appPicker() {
+        Intent intent = new Intent(".benzo.apppicker.AppPickerActivity");
+        startActivity(intent, true);
+    }
+
     private void prepareNavigationBarView() {
         mNavigationBarView.reorient();
 
         mNavigationBarView.setListeners(mRecentsClickListener, mRecentsPreloadOnTouchListener,
                 mLongPressBackRecentsListener, mHomeActionListener, mLongPressHomeListener,
                 mNotificationsClickListener, mNotificationsLongListener, mTorchClickListener,
-                mCameraClickListener, mScreenShotClickListener, mImmersiveClickListener);
+                mCameraClickListener, mScreenShotClickListener, mImmersiveClickListener,
+                mAppPickerClickListener);
         mAssistManager.onConfigurationChanged();
     }
 
