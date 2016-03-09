@@ -89,7 +89,6 @@ public abstract class PanelView extends FrameLayout {
     private VelocityTrackerInterface mVelocityTracker;
     private FlingAnimationUtils mFlingAnimationUtils;
 
-    private final PowerManager mPm;
     private boolean mUpdateExpandOnLayout;
     private View.OnLayoutChangeListener mLayoutChangeListener = new OnLayoutChangeListener() {
         @Override
@@ -221,7 +220,6 @@ public abstract class PanelView extends FrameLayout {
                 AnimationUtils.loadInterpolator(context, android.R.interpolator.linear_out_slow_in);
         mBounceInterpolator = new BounceInterpolator();
 
-        mPm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
     }
 
     protected void loadDimens() {
@@ -692,8 +690,6 @@ public abstract class PanelView extends FrameLayout {
                                 / collapseSpeedUpFactor));
             }
         }
-
-        mPm.cpuBoost((int)animator.getDuration() * 1000);
 
         animator.addListener(new AnimatorListenerAdapter() {
             private boolean mCancelled;
