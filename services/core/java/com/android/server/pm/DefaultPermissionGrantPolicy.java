@@ -632,6 +632,14 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(gmscorePackage, STORAGE_PERMISSIONS, userId);
             }
 
+            // ContactsProvider2
+            PackageParser.Package conpro2Package = getDefaultProviderAuthorityPackageLPr(
+                    "com.android.providers.contacts.ContactsProvider2", userId);
+            if (gmscorePackage != null) {
+                grantRuntimePermissionsLPw(conpro2Package, CONTACTS_PERMISSIONS, true, userId);
+                grantRuntimePermissionsLPw(conpro2Package, STORAGE_PERMISSIONS, true, userId);
+            }
+
             // Android Wear Home
             if (mService.hasSystemFeature(PackageManager.FEATURE_WATCH)) {
                 Intent homeIntent = new Intent(Intent.ACTION_MAIN);
