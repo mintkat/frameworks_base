@@ -3841,7 +3841,7 @@ public class AudioService extends IAudioService.Stub {
                  * If we send full audio gain, some accessories are too loud even at its lowest
                  * volume. We are not able to enumerate all such accessories, so here is the
                  * workaround from phone side.
-                 * For the lowest volume steps 1 2 and 3, restrict audio gain to 50% 70% and 85%.
+                 * For the lowest volume steps 1 2 and 3, restrict audio gain to 50% 75% and %85.
                  * For volume step 0, set audio gain to 0 as some accessories won't mute on their end.
                  */
                 int i = (getIndex(device) + 5)/10;
@@ -3852,8 +3852,8 @@ public class AudioService extends IAudioService.Stub {
                     // 50% for volume 1
                     index = (int)(mIndexMax * 0.5) /10;
                 } else if (i == 2) {
-                    // 70% for volume 2
-                    index = (int)(mIndexMax * 0.70) /10;
+                    // 75% for volume 2
+                    index = (int)(mIndexMax * 0.75) /10;
                 } else if (i == 3) {
                     // 85% for volume 3
                     index = (int)(mIndexMax * 0.85) /10;

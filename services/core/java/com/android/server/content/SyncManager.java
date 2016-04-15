@@ -2602,7 +2602,7 @@ public class SyncManager {
                         try {
                             ai = mContext.getPackageManager().getApplicationInfo(packageName,
                                     PackageManager.GET_UNINSTALLED_PACKAGES
-                                    | PackageManager.GET_DISABLED_COMPONENTS);
+                                            | PackageManager.GET_DISABLED_COMPONENTS);
                         } catch (NameNotFoundException e) {
                             operationIterator.remove();
                             mSyncStorageEngine.deleteFromPending(op.pendingOperation);
