@@ -4794,11 +4794,6 @@ public final class Settings {
          */
         public static final String SCREENSHOT_SOUND = "screenshot_sound";
 
-        /**
-         * whether to enable or disable vibration on succesful fingerprint auth
-         * @hide
-         */
-        public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
 
         /**
          * whether to enable torch on lockscreen
