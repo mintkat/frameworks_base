@@ -23,7 +23,6 @@ LOCAL_SRC_FILES := \
 
 LOCAL_CFLAGS := -g0 -Wno-deprecated-register -Wno-unused-parameter -Wno-writable-strings
 LOCAL_MODULE := aidl
-LOCAL_CLANG := false
 
 include $(BUILD_HOST_EXECUTABLE)
 
